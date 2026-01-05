@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProductList from "./ProductList";
 import ProductDetails from "./ProductDetails";
 import AdminPanel from "./AdminPanel";
-
+// import "./styles/App.css";
 const initialProducts = [
   { id: 1, name: "iPhone 12", price: 700 },
   { id: 2, name: "iPhone 13", price: 800 },
@@ -19,19 +19,17 @@ const App = () => {
   const [products, setProducts] = useState(initialProducts);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProductList products={products} />} />
-        <Route
-          path="/admin"
-          element={<AdminPanel products={products} setProducts={setProducts} />}
-        />
-        <Route
-          path="/products/:id"
-          element={<ProductDetails products={products} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<ProductList products={products} />} />
+      <Route
+        path="/admin"
+        element={<AdminPanel products={products} setProducts={setProducts} />}
+      />
+      <Route
+        path="/products/:id"
+        element={<ProductDetails products={products} />}
+      />
+    </Routes>
   );
 };
 
