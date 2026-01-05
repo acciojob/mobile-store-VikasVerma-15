@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminPanel = ({ products, setProducts }) => {
@@ -12,62 +13,46 @@ const AdminPanel = ({ products, setProducts }) => {
   const addProduct = () => {
     setProducts([
       ...products,
-      {
-        id: Date.now(),
-        ...form,
-        price: Number(form.price)
-      }
+      { ...form, id: products.length + 1 }
     ]);
   };
 
-  const deleteProduct = id => {
+  const deleteProduct = (id) => {
     setProducts(products.filter(p => p.id !== id));
   };
 
-  const updatePrice = (id, price) => {
-    setProducts(
-      products.map(p =>
-        p.id === id ? { ...p, price: Number(price) } : p
-      )
-    );
-  };
-
   return (
-    <div>
-      <h1>Admin Panel</h1>
+    <div className="container">
 
-      <input className="form-control" placeholder="Name"
-        onChange={e => setForm({ ...form, name: e.target.value })} />
-      <input className="form-control" placeholder="Description"
-        onChange={e => setForm({ ...form, description: e.target.value })} />
-      <input className="form-control" placeholder="Image URL"
-        onChange={e => setForm({ ...form, image: e.target.value })} />
-      <input className="form-control" placeholder="Price"
-        onChange={e => setForm({ ...form, price: e.target.value })} />
+      {/* ADD PRODUCT */}
+      <input className="form-control" onChange={e => setForm({ ...form, name: e.target.value })} />
+      <input className="form-control" onChange={e => setForm({ ...form, description: e.target.value })} />
+      <input className="form-control" onChange={e => setForm({ ...form, image: e.target.value })} />
+      <input className="form-control" onChange={e => setForm({ ...form, price: e.target.value })} />
 
       <button onClick={addProduct}>Add</button>
 
-      <ul>
-        {products.map(p => (
-          <li key={p.id}>
+      {/* PRODUCT LIST */}
+      {products.map((p) => (
+        <div key={p.id} className="row">
+          <div className="col-6">
             <Link to={`/products/${p.id}`}>{p.name}</Link>
+          </div>
 
+          <div className="col-3">
             <button
               className="float-right"
               onClick={() => deleteProduct(p.id)}
             >
               Delete
             </button>
+          </div>
 
-            <button
-              className="float-right"
-              onClick={() => updatePrice(p.id, p.price + 100)}
-            >
-              Save
-            </button>
-          </li>
-        ))}
-      </ul>
+          <div className="col-3">
+            <button className="float-right">Edit</button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

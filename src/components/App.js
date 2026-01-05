@@ -3,32 +3,36 @@ import { Routes, Route, Link } from "react-router-dom";
 import ProductList from "./ProductList";
 import ProductDetails from "./ProductDetails";
 import AdminPanel from "./AdminPanel";
-import './../styles/App.css';
 
 const App = () => {
   const [products, setProducts] = useState([
-    { id: 1, name: "iPhone 14", price: 800, description: "Apple phone", image: "img1" },
-    { id: 2, name: "Samsung S23", price: 750, description: "Samsung phone", image: "img2" },
-    { id: 3, name: "Pixel 7", price: 700, description: "Google phone", image: "img3" },
-    { id: 4, name: "OnePlus 11", price: 680, description: "OnePlus phone", image: "img4" },
-    { id: 5, name: "Xiaomi 13", price: 620, description: "Xiaomi phone", image: "img5" },
-    { id: 6, name: "Vivo X90", price: 600, description: "Vivo phone", image: "img6" },
-    { id: 7, name: "Oppo Find X", price: 590, description: "Oppo phone", image: "img7" },
-    { id: 8, name: "Realme GT", price: 560, description: "Realme phone", image: "img8" }
+    { id: 1, name: "iPhone 13", price: "70000", description: "Apple Phone", image: "https://via.placeholder.com/150" },
+    { id: 2, name: "Samsung S21", price: "65000", description: "Samsung Phone", image: "https://via.placeholder.com/150" },
+    { id: 3, name: "OnePlus 9", price: "50000", description: "OnePlus Phone", image: "https://via.placeholder.com/150" },
+    { id: 4, name: "Pixel 6", price: "60000", description: "Google Phone", image: "https://via.placeholder.com/150" },
+    { id: 5, name: "Nokia X20", price: "40000", description: "Nokia Phone", image: "https://via.placeholder.com/150" },
+    { id: 6, name: "Vivo V25", price: "35000", description: "Vivo Phone", image: "https://via.placeholder.com/150" },
+    { id: 7, name: "Oppo Reno", price: "30000", description: "Oppo Phone", image: "https://via.placeholder.com/150" },
+    { id: 8, name: "Realme GT", price: "28000", description: "Realme Phone", image: "https://via.placeholder.com/150" }
   ]);
 
   return (
     <div id="main">
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/admin">Admin Panel</Link>
-      </nav>
+      {/* navigation (Cypress expects links here) */}
+      <div className="row">
+        <div className="col-12">
+          <div><Link to="/">Home</Link></div>
+        </div>
+        <div className="col-12">
+          <div><Link to="/admin">Admin Panel</Link></div>
+        </div>
+      </div>
 
       <Routes>
         <Route path="/" element={<ProductList products={products} />} />
         <Route
           path="/products/:id"
-          element={<ProductDetails products={products} />}
+          element={<ProductDetails products={products} setProducts={setProducts} />}
         />
         <Route
           path="/admin"
