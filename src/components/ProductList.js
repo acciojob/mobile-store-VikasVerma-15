@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 const ProductList = ({ products }) => {
   return (
     <div className="container">
-      {products.map((p) =>
-       (
-        <div key={p.id}>
-          <Link to={`/products/${p.id}`}>
-            <div className="row">
-              <div className="col-12">{p.name}</div>
-            </div>
-          </Link>
+      {products.map((product) => (
+        <div className="col-12" key={product.id}>
+          <div>
+            <Link to={`/products/${product.id}`}>
+              <div className="row">
+                <div>{product.name}</div>
+                <div>{product.price}</div>
+              </div>
+            </Link>
+          </div>
         </div>
       ))}
     </div>

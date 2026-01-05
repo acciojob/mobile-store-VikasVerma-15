@@ -1,33 +1,16 @@
-import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 
-const ProductDetails = ({ products, setProducts }) => {
+const ProductDetails = ({ products }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const product = products.find((p) => p.id === Number(id));
 
-  const product = products.find(p => p.id === Number(id));
-  const [price, setPrice] = useState(product.price);
-
-  const save = () => {
-    setProducts(products.map(p =>
-      p.id === product.id ? { ...p, price } : p
-    ));
-  };
+  if (!product) return null;
 
   return (
-    <div>
+    <div className="row">
       <h2>{product.name}</h2>
-      <p>{product.description}</p>
-
-      <input
-        className="form-control"
-        value={price}
-        onChange={e => 
-          setPrice(e.target.value)}
-      />
-
-      <button className="float-right" onClick={save}>Save</button>
-      <button className="btn" onClick={() => navigate("/")}>Back</button>
+      <p>{product.price}</p>
     </div>
   );
 };
