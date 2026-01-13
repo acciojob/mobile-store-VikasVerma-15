@@ -4,12 +4,10 @@ import { Link } from "react-router-dom";
 const AdminPanel = ({ products, setProducts }) => {
   const [newProduct, setNewProduct] = useState({ name: "", price: "" });
 
-  // Delete a product by id
   const deleteProduct = (id) => {
     setProducts(products.filter((p) => p.id !== id));
   };
 
-  // Add a new product
   const addProduct = () => {
     if (!newProduct.name || !newProduct.price) return;
     const id = products.length + 1;
@@ -20,7 +18,6 @@ const AdminPanel = ({ products, setProducts }) => {
     setNewProduct({ name: "", price: "" });
   };
 
-  // Edit a product's price
   const editProduct = (id) => {
     const price = prompt("Enter new price:");
     if (!price) return;
@@ -60,13 +57,18 @@ const AdminPanel = ({ products, setProducts }) => {
       {products.map((product) => (
         <div
           key={product.id}
-          style={{ marginBottom: "10px" }}
-          className={`product-wrapper-${product.id}`} // unique wrapper
+          data-cy={`product-${product.id}`} // unique container for Cypress
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            marginBottom: "10px",
+          }}
         >
-          {/* Only the name is clickable */}
+          {/* Only name is clickable */}
           <Link to={`/products/${product.id}`}>{product.name}</Link>
 
-          {/* Edit/Delete buttons */}
+          {/* Buttons inside the same wrapper */}
           <button
             className="btn edit"
             data-cy={`edit-${product.id}`}
@@ -88,4 +90,5 @@ const AdminPanel = ({ products, setProducts }) => {
 };
 
 export default AdminPanel;
+
 
