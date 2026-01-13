@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const AdminPanel = ({ products, setProducts }) => {
-  const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-  });
-  const navigate = useNavigate();
+  const [newProduct, setNewProduct] = useState({ name: "", price: "" });
 
   const deleteProduct = (id) => {
     setProducts(products.filter((p) => p.id !== id));
@@ -15,11 +11,14 @@ const AdminPanel = ({ products, setProducts }) => {
   const addProduct = () => {
     if (!newProduct.name || !newProduct.price) return;
     const id = products.length + 1;
-    setProducts([...products, { id, ...newProduct, price: Number(newProduct.price) }]);
+    setProducts([
+      ...products,
+      { id, name: newProduct.name, price: Number(newProduct.price) },
+    ]);
     setNewProduct({ name: "", price: "" });
   };
 
-  const handleEdit = (id) => {
+  const editProduct = (id) => {
     const price = prompt("Enter new price:");
     if (!price) return;
     setProducts(
@@ -32,7 +31,7 @@ const AdminPanel = ({ products, setProducts }) => {
       <h2>Admin Panel</h2>
 
       {/* Add product form */}
-      <div className="col-12">
+      <div>
         <input
           className="form-control"
           placeholder="Name"
@@ -50,24 +49,16 @@ const AdminPanel = ({ products, setProducts }) => {
         </button>
       </div>
 
-      {/* List of products */}
-      {products.map((product, index) => (
-        <div key={product.id} className="col-12">
-          <div className="row">
-            <div className="col-8">
-              <a onClick={() => navigate(`/products/${product.id}`)}>
-                {product.name}
-              </a>
-            </div>
-            <div className="col-4 float-right">
-              <button className="btn" onClick={() => handleEdit(product.id)}>
-                Edit
-              </button>
-              <button className="btn" onClick={() => deleteProduct(product.id)}>
-                Delete
-              </button>
-            </div>
-          </div>
+      {/* Product list */}
+      {products.map((product, idx) => (
+        <div key={product.id}>
+          <Link to={`/products/${product.id}`}>{product.name}</Link>
+          <button className="btn" onClick={() => editProduct(product.id)}>
+            Edit
+          </button>
+          <button className="btn" onClick={() => deleteProduct(product.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
