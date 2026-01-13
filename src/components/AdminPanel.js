@@ -31,18 +31,22 @@ const AdminPanel = ({ products, setProducts }) => {
       <h2>Admin Panel</h2>
 
       {/* Add product form */}
-      <div>
+      <div style={{ marginBottom: "20px" }}>
         <input
           className="form-control"
           placeholder="Name"
           value={newProduct.name}
-          onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, name: e.target.value })
+          }
         />
         <input
           className="form-control"
           placeholder="Price"
           value={newProduct.price}
-          onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
+          onChange={(e) =>
+            setNewProduct({ ...newProduct, price: e.target.value })
+          }
         />
         <button className="btn" onClick={addProduct}>
           Add
@@ -51,12 +55,23 @@ const AdminPanel = ({ products, setProducts }) => {
 
       {/* Product list */}
       {products.map((product, idx) => (
-        <div key={product.id}>
+        <div key={product.id} style={{ marginBottom: "10px" }}>
+          {/* Only the name is clickable link */}
           <Link to={`/products/${product.id}`}>{product.name}</Link>
-          <button className="btn" onClick={() => editProduct(product.id)}>
+
+          {/* Edit/Delete buttons separated */}
+          <button
+            className="btn"
+            style={{ marginLeft: "10px" }}
+            onClick={() => editProduct(product.id)}
+          >
             Edit
           </button>
-          <button className="btn" onClick={() => deleteProduct(product.id)}>
+          <button
+            className="btn"
+            style={{ marginLeft: "10px" }}
+            onClick={() => deleteProduct(product.id)}
+          >
             Delete
           </button>
         </div>
@@ -66,3 +81,4 @@ const AdminPanel = ({ products, setProducts }) => {
 };
 
 export default AdminPanel;
+
