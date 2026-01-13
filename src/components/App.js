@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ProductList from "./ProductList";
 import ProductDetails from "./ProductDetails";
 import AdminPanel from "./AdminPanel";
-// import "./styles/App.css";
+
 const initialProducts = [
   { id: 1, name: "iPhone 12", price: 700 },
   { id: 2, name: "iPhone 13", price: 800 },
@@ -12,7 +12,7 @@ const initialProducts = [
   { id: 5, name: "OnePlus 9", price: 600 },
   { id: 6, name: "OnePlus 10", price: 700 },
   { id: 7, name: "Pixel 6", price: 650 },
-  { id: 8, name: "Pixel 7", price: 750 }
+  { id: 8, name: "Pixel 7", price: 750 },
 ];
 
 const App = () => {
