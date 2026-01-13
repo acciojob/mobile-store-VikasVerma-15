@@ -66,7 +66,9 @@ const AdminPanel = ({ products, setProducts }) => {
           }}
         >
           {/* Only name is clickable */}
-          <Link to={`/products/${product.id}`}>{product.name}</Link>
+          <Link data-cy={`link-${product.id}`} to={`/products/${product.id}`}>
+            {product.name}
+          </Link>
 
           {/* Buttons inside the same wrapper */}
           <button
