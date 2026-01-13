@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 const AdminPanel = ({ products, setProducts }) => {
   const [newProduct, setNewProduct] = useState({ name: "", price: "" });
 
+  // Delete a product by id
   const deleteProduct = (id) => {
     setProducts(products.filter((p) => p.id !== id));
   };
 
+  // Add a new product
   const addProduct = () => {
     if (!newProduct.name || !newProduct.price) return;
     const id = products.length + 1;
@@ -18,6 +20,7 @@ const AdminPanel = ({ products, setProducts }) => {
     setNewProduct({ name: "", price: "" });
   };
 
+  // Edit a product's price
   const editProduct = (id) => {
     const price = prompt("Enter new price:");
     if (!price) return;
@@ -48,18 +51,20 @@ const AdminPanel = ({ products, setProducts }) => {
             setNewProduct({ ...newProduct, price: e.target.value })
           }
         />
-        <button className="btn add" data-cy="add-product" onClick={addProduct}>
+        <button className="btn" onClick={addProduct}>
           Add
         </button>
       </div>
 
       {/* Product list */}
       {products.map((product) => (
-        <div key={product.id} style={{ marginBottom: "10px" }}>
-          {/* Product name link */}
-          <Link to={`/products/${product.id}`} data-cy={`product-${product.id}`}>
-            {product.name}
-          </Link>
+        <div
+          key={product.id}
+          style={{ marginBottom: "10px" }}
+          className={`product-wrapper-${product.id}`} // unique wrapper
+        >
+          {/* Only the name is clickable */}
+          <Link to={`/products/${product.id}`}>{product.name}</Link>
 
           {/* Edit/Delete buttons */}
           <button
@@ -83,3 +88,4 @@ const AdminPanel = ({ products, setProducts }) => {
 };
 
 export default AdminPanel;
+
