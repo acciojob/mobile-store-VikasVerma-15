@@ -48,28 +48,30 @@ const AdminPanel = ({ products, setProducts }) => {
             setNewProduct({ ...newProduct, price: e.target.value })
           }
         />
-        <button className="btn" onClick={addProduct}>
+        <button className="btn add" data-cy="add-product" onClick={addProduct}>
           Add
         </button>
       </div>
 
       {/* Product list */}
-      {products.map((product, idx) => (
+      {products.map((product) => (
         <div key={product.id} style={{ marginBottom: "10px" }}>
-          {/* Only the name is clickable link */}
-          <Link to={`/products/${product.id}`}>{product.name}</Link>
+          {/* Product name link */}
+          <Link to={`/products/${product.id}`} data-cy={`product-${product.id}`}>
+            {product.name}
+          </Link>
 
-          {/* Edit/Delete buttons separated */}
+          {/* Edit/Delete buttons */}
           <button
-            className="btn"
-            style={{ marginLeft: "10px" }}
+            className="btn edit"
+            data-cy={`edit-${product.id}`}
             onClick={() => editProduct(product.id)}
           >
             Edit
           </button>
           <button
-            className="btn"
-            style={{ marginLeft: "10px" }}
+            className="btn delete"
+            data-cy={`delete-${product.id}`}
             onClick={() => deleteProduct(product.id)}
           >
             Delete
@@ -81,4 +83,3 @@ const AdminPanel = ({ products, setProducts }) => {
 };
 
 export default AdminPanel;
-
